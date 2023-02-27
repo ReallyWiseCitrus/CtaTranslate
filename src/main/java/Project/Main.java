@@ -27,57 +27,91 @@ public class Main {
 
     }
 
-    public static void main(String[] agrs){
+    public static void main(String[] args) {
 
-        Scanner scanern = new Scanner(System.in, "cp866");
+        Scanner scanner = new Scanner(System.in, "cp866");
 
-        String ipunt = scanern.nextLine();
+        String input = scanner.nextLine();
 
-        cta(ipunt);
+        cta(input);
 
-        main(agrs);
+        main(args);
 
     }
 
-    private static void cta(String transatel) {
+    private static void cta(String Translate) {
 
-        String[] sptil = transatel.split(" ");
+       String[] Split = Translate.split(" ");
 
-        StringBuilder cta = new StringBuilder();
+       StringBuilder Cta = new StringBuilder();
 
-        for(String sptil_prat : sptil) {
+       for(String SplitPart : Split) {
 
-            for(int rnadom = 0; rnadom < new Random().nextInt(3) + 3; rnadom++) {
+           if(SplitPart.length() <= 3) {
 
-                int lnegth = sptil_prat.length();
+               Cta.append(SplitPart).append(" ");
 
-                int rnadom_chra_oen_ = new Random().nextInt(lnegth);
+               continue;
 
-                int rnadom_chra_otw_ = new Random().nextInt(lnegth);
+           }
 
-                char rnadom_chra_oen = sptil_prat.charAt(rnadom_chra_oen_);
+           if(SplitPart.length() <= 6) {
 
-                char rnadom_chra_otw = sptil_prat.charAt(rnadom_chra_otw_);
+               int RandomCharAt = new Random().nextInt(SplitPart.length() - 1) + 1;
 
-                char[] chras = sptil_prat.toCharArray();
+               char CharAt = SplitPart.charAt(RandomCharAt);
 
-                chras[rnadom_chra_oen_] = rnadom_chra_otw;
+               char LastChar = SplitPart.charAt(SplitPart.length() - 1);
 
-                chras[rnadom_chra_otw_] = rnadom_chra_oen;
+               char[] Chars = SplitPart.toCharArray();
 
-                sptil_prat = String.valueOf(chras);
+               Chars[Chars.length-1] = CharAt;
 
-            }
+               Chars[RandomCharAt] = LastChar;
 
-            cta.append(sptil_prat).append(" ");
+               SplitPart = String.valueOf(Chars);
 
-        }
+           } else {
 
-        String cta_transatel = cta.toString();
+               long Replaces = SplitPart.length() / 4;
 
-        cta_transatel = cta_transatel.substring(0, cta_transatel.length()-1);
+               for(int i = 0; i < Replaces; i++) {
 
-        printStream.println(cta_transatel);
+                   int RandomCharAt = new Random().nextInt(SplitPart.length() - 1) + 1;
+
+                   int SecondRandomCharAt = new Random().nextInt(SplitPart.length() - 1) + 1;
+
+                   while(SecondRandomCharAt == RandomCharAt) {
+
+                       SecondRandomCharAt = new Random().nextInt(SplitPart.length() - 1) + 1;
+
+                   }
+
+                   char CharAt = SplitPart.charAt(RandomCharAt);
+
+                   char SecondCharAt = SplitPart.charAt(SecondRandomCharAt);
+
+                   char[] Chars = SplitPart.toCharArray();
+
+                   Chars[RandomCharAt] = SecondCharAt;
+
+                   Chars[SecondRandomCharAt] = CharAt;
+
+                   SplitPart = String.valueOf(Chars);
+
+               }
+
+           }
+
+           Cta.append(SplitPart).append(" ");
+
+       }
+
+       String Translated = Cta.toString();
+
+       Translated = Translated.substring(0, Cta.length() - 1);
+
+       printStream.println(Translated);
 
     }
 
